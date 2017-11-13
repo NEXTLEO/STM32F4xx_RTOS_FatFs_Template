@@ -56,7 +56,7 @@ uint32_t sd_init(void)
 	{
 		return 1;
 	}
-	
+	/* ##-4- Create File ## */
 	if(file_create() != 0)
 	{
 		LOG(LC_CRED "File Create Error.\r\n");
