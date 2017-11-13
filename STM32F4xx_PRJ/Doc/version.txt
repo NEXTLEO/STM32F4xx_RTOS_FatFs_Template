@@ -8,3 +8,7 @@
   * @brief   This is a STM32F427 Project Template with FreeRTOS + Fatfs + LED.
   ******************************************************************************
 **/	
+
+Bug not fix:
+
+Create two Threads in the same time may cause System Breakdown.
