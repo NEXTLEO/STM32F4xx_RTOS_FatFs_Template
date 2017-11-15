@@ -26,8 +26,7 @@ static void Error_Handler(void);
 /* main function */
 int main(void)
 {
-	if(system_init_os() != 0)
-	{
+	if(system_init_os() != 0) {
 		LOG(LC_CRED "System Init Error.\n");
 //		Error_Handler();
 	}
@@ -75,18 +74,15 @@ static void FileHandleThread(void const *argument)
 {
 	(void) argument;
 	FRESULT res_write;
-	for(;;)
-	{
+	for(;;) {
 		BSP_LED_Toggle(LED_RED);
 		osDelay(1000);
 		counter1++;
 		res_write = file_write((char *)WRITE_STRING, sizeof(WRITE_STRING)-1, counter1-1);
-		if(res_write != FR_OK)
-		{
+		if(res_write != FR_OK) {
 			LOG(LC_CRED "Write File Error - %d.\n", counter1);
 		}
-		else
-		{
+		else {
 			LOG(LC_CYELLOW "Write File OK - %d.\n", counter1);
 		}
 	}
@@ -104,7 +100,6 @@ void Error_Handler(void)
 	BSP_LED_On(LED_RED);
 		
 	LOG(LC_CRED "System Error_Handler.\n");
-	while(1)
-	{
+	while(1) {
 	}
 }

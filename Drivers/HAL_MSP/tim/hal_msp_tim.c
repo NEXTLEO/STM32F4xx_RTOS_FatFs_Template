@@ -93,16 +93,14 @@ uint32_t TIM3_Config(void)
 	Tim3Handle.Init.Prescaler = uwPrescalerValue;
 	Tim3Handle.Init.ClockDivision = 0;
 	Tim3Handle.Init.CounterMode = TIM_COUNTERMODE_UP;
-	if(HAL_TIM_Base_Init(&Tim3Handle) != HAL_OK)
-	{
+	if(HAL_TIM_Base_Init(&Tim3Handle) != HAL_OK) {
 		/* Initialization Error */
 		return 1;
 	}
 
 	/*##-2- Start the TIM Base generation in interrupt mode ####################*/
 	/* Start Channel1 */
-//	if(HAL_TIM_Base_Start_IT(&TimHandle) != HAL_OK)
-//	{
+//	if(HAL_TIM_Base_Start_IT(&TimHandle) != HAL_OK) {
 //		/* Starting Error */
 //		return 1;
 //	}
@@ -157,8 +155,7 @@ uint32_t TIM4_Config_For_Buzzer(void)
 	Tim4Handle.Init.Prescaler = uwPrescalerValue;
 	Tim4Handle.Init.ClockDivision = 0;
 	Tim4Handle.Init.CounterMode = TIM_COUNTERMODE_UP;
-	if(HAL_TIM_Base_Init(&Tim4Handle) != HAL_OK)
-	{
+	if(HAL_TIM_Base_Init(&Tim4Handle) != HAL_OK) {
 		/* Initialization Error */
 		return 1;
 	}
@@ -212,8 +209,7 @@ uint32_t TIM4_Config_For_KEY_Detect(void)
 	Tim4Handle.Init.Prescaler = uwPrescalerValue;
 	Tim4Handle.Init.ClockDivision = 0;
 	Tim4Handle.Init.CounterMode = TIM_COUNTERMODE_UP;
-	if(HAL_TIM_Base_Init(&Tim4Handle) != HAL_OK)
-	{
+	if(HAL_TIM_Base_Init(&Tim4Handle) != HAL_OK) {
 		/* Initialization Error */
 		return 1;
 	}
@@ -227,8 +223,7 @@ uint32_t TIM4_Config_For_KEY_Detect(void)
 */
 uint32_t TIMx_Enable(TIM_HandleTypeDef TimHandle)
 {
-	if(HAL_TIM_Base_Start_IT(&TimHandle) != HAL_OK)
-	{
+	if(HAL_TIM_Base_Start_IT(&TimHandle) != HAL_OK) {
 		/* Starting Error */
 		return 1;
 	}
@@ -240,8 +235,7 @@ uint32_t TIMx_Enable(TIM_HandleTypeDef TimHandle)
 */
 uint32_t TIMx_Disable(TIM_HandleTypeDef TimHandle)
 {
-	if(HAL_TIM_Base_Stop_IT(&TimHandle) != HAL_OK)
-	{
+	if(HAL_TIM_Base_Stop_IT(&TimHandle) != HAL_OK) {
 		/* Starting Error */
 		return 1;
 	}

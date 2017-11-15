@@ -336,7 +336,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER STM32F427xx HSE_VALUE=16000000 LOG_RTT</Define>
               <Undefine></Undefine>
-              <IncludePath>..\Inc;..\Src;..\..\Drivers\STM32F4xx_HAL_Driver\Src;..\..\Drivers\STM32F4xx_HAL_Driver\Inc;..\..\Middlewares\Third_Party\FatFs\src;..\..\Middlewares\Third_Party\FatFs\src\drivers;..\..\Drivers\HAL_MSP\TIM;..\..\Drivers\HAL_BSP\SD;..\..\Drivers\HAL_BSP\LED;..\..\Drivers\HAL_BSP\FILE;..\..\Drivers\HAL_BSP\log;..\..\Middlewares\SEGGER_RTT\RTT;..\..\Middlewares\SEGGER_RTT\Syscalls;..\..\Middlewares\Third_Party\FreeRTOS\Source\portable\MemMang;..\..\Middlewares\Third_Party\FreeRTOS\Source\portable\RVDS\ARM_CM4F;..\..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS;..\..\Middlewares\Third_Party\FreeRTOS\Source;..\..\Middlewares\Third_Party\FreeRTOS\Source\include</IncludePath>
+              <IncludePath>..\Inc;..\Src;..\..\Drivers\STM32F4xx_HAL_Driver\Src;..\..\Drivers\STM32F4xx_HAL_Driver\Inc;..\..\Middlewares\Third_Party\FatFs\src;..\..\Middlewares\Third_Party\FatFs\src\drivers;..\..\Drivers\HAL_MSP\TIM;..\..\Drivers\HAL_BSP\SD;..\..\Drivers\HAL_BSP\LED;..\..\Drivers\HAL_BSP\FILE;..\..\Drivers\HAL_BSP\log;..\..\Middlewares\SEGGER_RTT\RTT;..\..\Middlewares\SEGGER_RTT\Syscalls;..\..\Middlewares\Third_Party\FreeRTOS\Source\portable\MemMang;..\..\Middlewares\Third_Party\FreeRTOS\Source\portable\RVDS\ARM_CM4F;..\..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS;..\..\Middlewares\Third_Party\FreeRTOS\Source;..\..\Middlewares\Third_Party\FreeRTOS\Source\include;..\..\..\STM32F4xx_RTOS_FatFs_Template</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -863,21 +863,6 @@
               <FileName>heap_4.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Middlewares\Third_Party\FreeRTOS\Source\portable\MemMang\heap_4.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Doc</GroupName>
-          <Files>
-            <File>
-              <FileName>version.txt</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Doc\version.txt</FilePath>
-            </File>
-            <File>
-              <FileName>readme.txt</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Doc\readme.txt</FilePath>
             </File>
           </Files>
         </Group>

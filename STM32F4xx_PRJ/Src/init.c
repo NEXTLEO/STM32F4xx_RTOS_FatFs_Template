@@ -21,13 +21,11 @@ uint32_t system_init_os(void)
 	HAL_Init();
 	SystemClock_Config();
 	
-	if(led_init() != 0)	/* led init */
-	{
+	if(led_init() != 0) {	/* led init */
 		LOG(LC_CRED "LED Init Error.\n");
 		return 1;		
 	}
-	if(sd_init() != 0)
-	{
+	if(sd_init() != 0) {
 		LOG(LC_CRED "SD INIT ERROR\r\n");
 		return 1;
 	}

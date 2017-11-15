@@ -105,12 +105,10 @@ uint32_t exit_cardreader_mode(void)
   */
 uint32_t sd_cardreader_power_control(CR_PWR_Type CR_Pwr)
 {
-	if(CR_Pwr == CR_PWR_OFF)
-	{
+	if(CR_Pwr == CR_PWR_OFF) {
 		HAL_GPIO_WritePin(CR_PWR_CTRL_PORT, CR_PWR_CTRL_PIN, GPIO_PIN_SET);	//Power Off
 	}
-	else if(CR_Pwr == CR_PWR_ON)
-	{
+	else if(CR_Pwr == CR_PWR_ON) {
 		HAL_GPIO_WritePin(CR_PWR_CTRL_PORT, CR_PWR_CTRL_PIN, GPIO_PIN_RESET); //Power On
 	}
 	
@@ -148,12 +146,10 @@ uint32_t sd_mux_control_init(void)
   */
 uint32_t sd_mux_control(SD_MUX_Type SD_Mux)
 {
-	if(SD_Mux == SD_MUX_MT)
-	{
+	if(SD_Mux == SD_MUX_MT) {
 		HAL_GPIO_WritePin(SD_MUX_PORT, SD_MUX_PIN, GPIO_PIN_RESET);//SD DISABLE, USD ENABLE
 	}
-	else if(SD_Mux == SD_MUX_CR)
-	{
+	else if(SD_Mux == SD_MUX_CR) {
 		HAL_GPIO_WritePin(SD_MUX_PORT, SD_MUX_PIN, GPIO_PIN_SET);//USD DISABLE, SD ENABLE
 	}
 	
@@ -188,12 +184,10 @@ static uint32_t sd_detect_init(void)
 */
 static uint32_t sd_check_connect_status(void)
 {
-	if(HAL_GPIO_ReadPin(SD_DETECT_PORT, SD_DETECT_PIN) == 0x00)	/* SD Insert */
-	{
+	if(HAL_GPIO_ReadPin(SD_DETECT_PORT, SD_DETECT_PIN) == 0x00) {	/* SD Insert */
 		return 1;
 	}
-	else /* SD Remove */
-	{
+	else { /* SD Remove */
 		return 0;
 	}
 }
@@ -209,15 +203,13 @@ static uint32_t sd_check_connect_status_change(void)
 	newSdSta = sd_check_connect_status();
 	curSdSta = sd_get_conncet_status();
 	
-	if(newSdSta == 0x01 && curSdSta == SD_REMOVE)
-	{
+	if(newSdSta == 0x01 && curSdSta == SD_REMOVE) {
 		sd_set_connect_status(SD_INSERT);
 		sd_set_change_status(SD_STA_CHANGED);		
 //		LOG(MD_CGREEN "SD Insert.\n");
 
 	}
-	else if(newSdSta == 0x00 && curSdSta == SD_INSERT)
-	{
+	else if(newSdSta == 0x00 && curSdSta == SD_INSERT) {
 		sd_set_connect_status(SD_REMOVE);
 		sd_set_change_status(SD_STA_CHANGED);		
 //		LOG(MD_CGREEN "SD Renove.\n");
@@ -232,16 +224,13 @@ static uint32_t sd_check_connect_status_change(void)
 uint32_t sd_connect_statemachine(void)
 {
 	sd_check_connect_status_change();
-	if(sd_get_change_status() == SD_STA_CHANGED)
-	{
+	if(sd_get_change_status() == SD_STA_CHANGED) {
 		sd_set_change_status(SD_STA_NOT_CHANGED);
 		
-		if(sd_get_conncet_status() == SD_INSERT)
-		{
+		if(sd_get_conncet_status() == SD_INSERT) {
 //			LOG(MD_CGREEN "SD Insert.\n");
 		}
-		else if(sd_get_conncet_status() == SD_REMOVE)
-		{
+		else if(sd_get_conncet_status() == SD_REMOVE) {
 //			LOG(MD_CGREEN "SD Renove.\n");			
 		}
 	}
@@ -309,28 +298,23 @@ uint8_t BSP_SD_Init(void)
 	sd_detect_init();
 	
 	/* Check if the SD card is plugged in the slot */
-	if(BSP_SD_IsDetected() != SD_PRESENT)
-	{
+	if(BSP_SD_IsDetected() != SD_PRESENT) {
 		return MSD_ERROR;
 	}
 	
 	/* HAL SD initialization */
 	SD_MspInit();
-	if(HAL_SD_Init(&uSdHandle, &uSdCardInfo) != SD_OK)
-	{
+	if(HAL_SD_Init(&uSdHandle, &uSdCardInfo) != SD_OK) {
 		SD_state = MSD_ERROR;
 	}
 
 	/* Configure SD Bus width */
-	if(SD_state == MSD_OK)
-	{
+	if(SD_state == MSD_OK) {
 		/* Enable wide operation */
-		if(HAL_SD_WideBusOperation_Config(&uSdHandle, SDIO_BUS_WIDE_4B) != SD_OK)
-		{
+		if(HAL_SD_WideBusOperation_Config(&uSdHandle, SDIO_BUS_WIDE_4B) != SD_OK) {
 			SD_state = MSD_ERROR;
 		}
-		else
-		{
+		else {
 			SD_state = MSD_OK;
 		}
 	}
@@ -347,13 +331,11 @@ uint8_t BSP_SD_IsDetected(void)
 	__IO uint8_t status = SD_PRESENT;
 	
 	/* Check SD card detect pin */
-	if(HAL_GPIO_ReadPin(SD_DETECT_PORT, SD_DETECT_PIN))
-	{
+	if(HAL_GPIO_ReadPin(SD_DETECT_PORT, SD_DETECT_PIN)) {
 		status = SD_NOT_PRESENT;
 		sd_set_connect_status(SD_REMOVE);
 	}
-	else
-	{
+	else {
 		sd_set_connect_status(SD_INSERT);
 	}
 
@@ -379,12 +361,10 @@ __weak void BSP_SD_DetectCallback(void)
   */
 uint8_t BSP_SD_ReadBlocks(uint32_t *pData, uint64_t ReadAddr, uint32_t BlockSize, uint32_t NumOfBlocks)
 {
-	if(HAL_SD_ReadBlocks(&uSdHandle, pData, ReadAddr, BlockSize, NumOfBlocks) != SD_OK)
-	{
+	if(HAL_SD_ReadBlocks(&uSdHandle, pData, ReadAddr, BlockSize, NumOfBlocks) != SD_OK) {
 		return MSD_ERROR;
 	}
-	else
-	{
+	else {
 		return MSD_OK;
 	}
 }
@@ -399,12 +379,10 @@ uint8_t BSP_SD_ReadBlocks(uint32_t *pData, uint64_t ReadAddr, uint32_t BlockSize
   */
 uint8_t BSP_SD_WriteBlocks(uint32_t *pData, uint64_t WriteAddr, uint32_t BlockSize, uint32_t NumOfBlocks)
 {
-	if(HAL_SD_WriteBlocks(&uSdHandle, pData, WriteAddr, BlockSize, NumOfBlocks) != SD_OK)
-	{
+	if(HAL_SD_WriteBlocks(&uSdHandle, pData, WriteAddr, BlockSize, NumOfBlocks) != SD_OK) {
 		return MSD_ERROR;
 	}
-	else
-	{
+	else {
 		return MSD_OK;
 	}
 }
@@ -422,20 +400,16 @@ uint8_t BSP_SD_ReadBlocks_DMA(uint32_t *pData, uint64_t ReadAddr, uint32_t Block
 	uint8_t SD_state = MSD_OK;
 
 	/* Read block(s) in DMA transfer mode */
-	if(HAL_SD_ReadBlocks_DMA(&uSdHandle, pData, ReadAddr, BlockSize, NumOfBlocks) != SD_OK)
-	{
+	if(HAL_SD_ReadBlocks_DMA(&uSdHandle, pData, ReadAddr, BlockSize, NumOfBlocks) != SD_OK) {
 		SD_state = MSD_ERROR;
 	}
 
 	/* Wait until transfer is complete */
-	if(SD_state == MSD_OK)
-	{
-		if(HAL_SD_CheckReadOperation(&uSdHandle, (uint32_t)SD_DATATIMEOUT) != SD_OK)
-		{
+	if(SD_state == MSD_OK) {
+		if(HAL_SD_CheckReadOperation(&uSdHandle, (uint32_t)SD_DATATIMEOUT) != SD_OK) {
 			SD_state = MSD_ERROR;
 		}
-		else
-		{
+		else {
 			SD_state = MSD_OK;
 		}
 	}
@@ -456,20 +430,16 @@ uint8_t BSP_SD_WriteBlocks_DMA(uint32_t *pData, uint64_t WriteAddr, uint32_t Blo
 	uint8_t SD_state = MSD_OK;
 
 	/* Write block(s) in DMA transfer mode */
-	if(HAL_SD_WriteBlocks_DMA(&uSdHandle, pData, WriteAddr, BlockSize, NumOfBlocks) != SD_OK)
-	{
+	if(HAL_SD_WriteBlocks_DMA(&uSdHandle, pData, WriteAddr, BlockSize, NumOfBlocks) != SD_OK) {
 		SD_state = MSD_ERROR;
 	}
 
 	/* Wait until transfer is complete */
-	if(SD_state == MSD_OK)
-	{
-		if(HAL_SD_CheckWriteOperation(&uSdHandle, (uint32_t)SD_DATATIMEOUT) != SD_OK)
-		{
+	if(SD_state == MSD_OK) {
+		if(HAL_SD_CheckWriteOperation(&uSdHandle, (uint32_t)SD_DATATIMEOUT) != SD_OK) {
 			SD_state = MSD_ERROR;
 		}
-		else
-		{
+		else {
 			SD_state = MSD_OK;
 		}
 	}
@@ -485,12 +455,10 @@ uint8_t BSP_SD_WriteBlocks_DMA(uint32_t *pData, uint64_t WriteAddr, uint32_t Blo
   */
 uint8_t BSP_SD_Erase(uint64_t StartAddr, uint64_t EndAddr)
 {
-	if(HAL_SD_Erase(&uSdHandle, StartAddr, EndAddr) != SD_OK)
-	{
+	if(HAL_SD_Erase(&uSdHandle, StartAddr, EndAddr) != SD_OK) {
 		return MSD_ERROR;
 	}
-	else
-	{
+	else {
 		return MSD_OK;
 	}
 }
@@ -631,7 +599,7 @@ void BSP_SD_DMA_Rx_IRQHandler(void)
   */
 HAL_SD_TransferStateTypedef BSP_SD_GetStatus(void)
 {
-  return(HAL_SD_GetStatus(&uSdHandle));
+	return(HAL_SD_GetStatus(&uSdHandle));
 }
 
 /**
@@ -640,6 +608,6 @@ HAL_SD_TransferStateTypedef BSP_SD_GetStatus(void)
   */
 void BSP_SD_GetCardInfo(HAL_SD_CardInfoTypedef *CardInfo)
 {
-  /* Get SD card Information */
-  HAL_SD_Get_CardInfo(&uSdHandle, CardInfo);
+	/* Get SD card Information */
+	HAL_SD_Get_CardInfo(&uSdHandle, CardInfo);
 }
